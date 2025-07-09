@@ -20,6 +20,8 @@ RUN --mount=type=cache,target=/go/pkg/mod \
 FROM gcr.io/distroless/base-debian12
 # Set the working directory
 WORKDIR /server
+# Set default toolset permissions
+ENV GITHUB_TOOLSET_PERMISSIONS='{"issues":{"level":"read","scopes":["repo"]},"pullrequests":{"level":"write","scopes":["repo"]},"discussions":{"level":"read","scopes":["repo"]},"actions":{"level":"admin","scopes":["repo","workflow"]},"dependabot":{"level":"write","scopes":["repo","security_events"]},"code_scanning":{"level":"read","scopes":["repo","security_events"]},"secret_scanning":{"level":"admin","scopes":["repo","security_events"]}}'
 # Copy the binary from the build stage
 COPY --from=build /bin/github-mcp-server .
 # Set the entrypoint to the server binary
