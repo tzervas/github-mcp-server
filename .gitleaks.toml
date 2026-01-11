@@ -1,0 +1,59 @@
+# Gitleaks configuration file
+
+title = "Gitleaks Rules"
+
+# Add custom rules for secret detection
+[[rules]]
+id = "github-token"
+description = "GitHub Token"
+regex = '''(?i)(?:github(?:_| |\.|-)token|gh(?:_| |\.|-)token|gh(?:_| |\.|-)pat|github(?:_| |\.|-)pat)(?:[ |=|:])[ |"|']*([a-zA-Z0-9]{35,41})'''
+secret-group = 1
+entropy = 4.5
+keywords = [
+    "github[_|-]token",
+    "gh[_|-]token",
+    "gh[_|-]pat",
+    "github[_|-]pat"
+]
+
+[[rules]]
+id = "github-oauth"
+description = "GitHub OAuth Access Token"
+regex = '''(?i)(?:github(?:_| |\.|-)oauth|gh(?:_| |\.|-)oauth)(?:[ |=|:])[ |"|']*([a-zA-Z0-9]{35,41})'''
+secret-group = 1
+entropy = 4.5
+keywords = [
+    "github[_|-]oauth",
+    "gh[_|-]oauth"
+]
+
+[[rules]]
+id = "aws-access-token"
+description = "AWS Access Token"
+regex = '''(?i)(?:aws_access_key_id|aws_secret_access_key)(?:[ |=|:])[ |"|']*([a-zA-Z0-9/+]{40})'''
+secret-group = 1
+keywords = [
+    "aws_access_key_id",
+    "aws_secret_access_key"
+]
+
+[[rules]]
+id = "private-key"
+description = "Private Key"
+regex = '''(?i)-----BEGIN[ A-Z0-9_-]*PRIVATE KEY-----'''
+keywords = [
+    "BEGIN PRIVATE KEY",
+    "BEGIN RSA PRIVATE KEY",
+    "BEGIN DSA PRIVATE KEY",
+    "BEGIN EC PRIVATE KEY",
+    "BEGIN PGP PRIVATE KEY BLOCK"
+]
+
+# Allow list specific files/paths
+[allowlist]
+paths = [
+    '''(.*?)(test)''',         # Test files
+    '''(.*?)(mock)''',         # Mock files
+    '''(.*?)(\\.example)''',   # Example files
+    '''(.*?)(\\.sample)'''     # Sample files
+]
