@@ -74,7 +74,7 @@ jobs:
 
       # Secrets Scanning
       - name: Run gitleaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v2.19.0
         with:
           config-path: .gitleaks.toml
           format: sarif
