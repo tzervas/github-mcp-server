@@ -61,7 +61,7 @@ jobs:
 
       # SAST Scanning
       - name: Run gosec
-        uses: securego/gosec@master
+        uses: securego/gosec@v2.19.0
         with:
           args: '-no-fail -fmt sarif -out gosec-results.sarif ./...'
 
