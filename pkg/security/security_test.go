@@ -19,6 +19,19 @@ func TestSecurityConfig(t *testing.T) {
 		assert.True(t, cfg.RateLimit.Enabled, "Rate limiting should be enabled by default")
 		assert.Equal(t, float64(10), cfg.RateLimit.RequestsPerSecond, "Default RPS should be 10")
 	})
+
+	t.Run("NonDefaultConfig", func(t *testing.T) {
+		cfg := DefaultConfig()
+		cfg.ReadOnly = false
+		cfg.DynamicToolsets = false
+		cfg.RateLimit.Enabled = false
+		cfg.RateLimit.RequestsPerSecond = 42
+
+		assert.False(t, cfg.ReadOnly, "ReadOnly should be false when set")
+		assert.False(t, cfg.DynamicToolsets, "DynamicToolsets should be false when set")
+		assert.False(t, cfg.RateLimit.Enabled, "Rate limiting should be disabled when set")
+		assert.Equal(t, float64(42), cfg.RateLimit.RequestsPerSecond, "RPS should reflect non-default value")
+	})
 }
 
 func TestSecurityHeaders(t *testing.T) {
