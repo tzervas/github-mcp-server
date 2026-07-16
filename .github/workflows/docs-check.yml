@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   docs-check:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64, podman]
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
