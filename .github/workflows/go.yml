@@ -11,7 +11,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os == 'macos-latest' && 'macos-latest' || fromJSON('["self-hosted", "linux", "x64", "podman"]') }}
 
     steps:
       - name: Check out code
